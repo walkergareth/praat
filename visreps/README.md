@@ -5,7 +5,7 @@ Scripts for use with the Praat program
 things in the Picture window.  The following article shows some
 of these scripts in action:
 
-Walker, G. (2017a). Visual representations of acoustic data: A survey
+Walker, G. (2017). Visual representations of acoustic data: A survey
 and suggestions. Research on Language and Social Interaction, 50(4),
 363–387. https://doi.org/10.1080/08351813.2017.1375802
 
