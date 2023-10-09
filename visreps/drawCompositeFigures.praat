@@ -260,9 +260,11 @@ endif
 if right_Time_range = 0
   right_Time_range = endTime
 endif
-# gets the current line width setting
+# gets the current line setting
 picInfo$ = Picture info
 origLineType$ = extractLine$(picInfo$, "Line type: ")
+origLineWidth$ = extractLine$(picInfo$, "Line width: ")
+origLineWidth = number (origLineWidth$)
 speckleSize = extractNumber(picInfo$, "Speckle size:")
 colour$ = extractLine$(picInfo$, "Colour: ")
 if erase_all = 1
@@ -478,39 +480,54 @@ procedure finalGarnish
   axisLeft = extractNumber (info$, "Axis left: ") 
   axisRight = extractNumber (info$, "Axis right: ")
   axisBottom = extractNumber (info$, "Axis bottom: ")
-  axisTop = extractNumber (info$, "Axis top: ") 
+  axisTop = extractNumber (info$, "Axis top: ")
+
   Axes: axisLeft, axisRight, 0, 1
+
+  info$ = Picture info
+  tivpTop = extractNumber(picInfo$, "Inner viewport top:")
+  tivpBottom = extractNumber(picInfo$, "Inner viewport bottom:")
+  tovpBottom = extractNumber(picInfo$, "Outer viewport bottom:")
+
+  # size of the viewport
+  vpSize = (tovpBottom-tivpBottom)
+  # range of y values covered by viewport
+  vpY = (1/(tivpBottom-tivpTop))*vpSize
+  # length of line to cover a proportion of viewport
+  tMarkBottom = (vpY/16)*-1
+  tMarkTop = sqrt(tMarkBottom^2)
+
   if minor_mark_x_axis_every > 0
     minorMarkBottom = (round(left_Time_range/minor_mark_x_axis_every))*minor_mark_x_axis_every
-    Line width: 2
+    Line width: 2*origLineWidth
     repeat
       if minorMarkBottom >= left_Time_range
-        Draw line: minorMarkBottom, -0.0075, minorMarkBottom, 0
+        Draw line: minorMarkBottom, tMarkBottom, minorMarkBottom, 0
         if mirror_x_axis_labels = 1
-          Draw line: minorMarkBottom, 1.0075, minorMarkBottom, 1
+          Draw line: minorMarkBottom, tMarkTop+1, minorMarkBottom, 1
         endif
       endif
       minorMarkBottom = minorMarkBottom + minor_mark_x_axis_every
     until 'minorMarkBottom:14' > right_Time_range
-    Line width: 1
+    Line width: origLineWidth
   endif
   if major_mark_x_axis_every > 0
     majorMarkBottom = (round(left_Time_range/major_mark_x_axis_every))*major_mark_x_axis_every
-    Line width: 2
+    Line width: 2*origLineWidth
     repeat
       if majorMarkBottom >= left_Time_range
-        Draw line: majorMarkBottom, -0.015, majorMarkBottom, 0
+        Draw line: majorMarkBottom, tMarkBottom*2, majorMarkBottom, 0
         majorMarkBottomRnd = 'majorMarkBottom:14'
         majorMarkBottom$ = string$ (majorMarkBottomRnd)
-        Text: majorMarkBottom, "centre", -0.015, "top", majorMarkBottom$
+        Text: majorMarkBottom, "centre", tMarkBottom*6, "half", majorMarkBottom$
         if mirror_x_axis_labels = 1
-          Draw line: majorMarkBottom, 1.015, majorMarkBottom, 1
-          Text: majorMarkBottom, "centre", 1, "bottom", majorMarkBottom$
+          Draw line: majorMarkBottom, (tMarkTop*2)+1, majorMarkBottom, 1
+          Text: majorMarkBottom, "centre", (tMarkTop*6)+1, "half", majorMarkBottom$
         endif
       endif
       majorMarkBottom = majorMarkBottom + major_mark_x_axis_every
     until 'majorMarkBottom:14' > right_Time_range
-    Line width: 1
+    Line width: origLineWidth
   endif
   Axes: axisLeft, axisRight, axisBottom, axisTop
   Text bottom: "yes", "Time (s)"
@@ -523,6 +540,7 @@ procedure getOrigViewport
   oivpRight = extractNumber(opicInfo$, "Inner viewport right:")
   oivpTop = extractNumber(opicInfo$, "Inner viewport top:")
   oivpBottom = extractNumber(opicInfo$, "Inner viewport bottom:")
+  oovpBottom = extractNumber(opicInfo$, "Outer viewport bottom:")
 endproc
 # get current viewport
 procedure getViewport
