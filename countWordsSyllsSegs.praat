@@ -60,7 +60,7 @@ endif
 # all IPA vowel and consonant symbols as they appear on the IPA chart,
 # plus some affricate symbols available in the Praat menus, for use in
 # regexes later
-vowels$ = "(i|y|ɨ|ʉ|ɯ|u|ɪ|ʏ|ʊ|e|ø|ɘ|ɵ|ɤ|o|ə|ɛ|œ|ɜ|ɞ|ʌ|ɔ|æ|ɐ|a|ɶ|ɑ|ɒ|ɚ|a˞|ɝ)"
+vowels$ = "(i|y|ɨ|ʉ|ɯ|u|ɪ|ᵻ|ʏ|ʊ|e|ø|ɘ|ɵ|ɤ|o|ə|ɛ|œ|ɜ|ɞ|ʌ|ɔ|æ|ɐ|a|ɶ|ɑ|ɒ|ɚ|a˞|ɝ)"
 consonants$ = "(p|b|t|d|ʈ|ɖ|c|ɟ|k|ɡ|q|ɢ|ʔ|m|ɱ|n|ɳ|ɲ|ŋ|ɴ|ʙ|r|ʀ|ⱱ|ɾ|ɽ|ɸ|β|f|v|θ|ð|s|z|ʃ|ʒ|ʂ|ʐ|ç|ʝ|x|ɣ|χ|ʁ|ħ|ʕ|h|ɦ|ɬ|ɮ|ʋ|ɹ|ɻ|j|ɰ|l|ɭ|ʎ|ʟ|ʘ|ǀ|ǃ|ǂ|ǁ|ɓ|ɗ|ʄ|ɠ|ʛ|pʼ|tʼ|kʼ|sʼ|ʍ|w|ɥ|ʜ|ʢ|ʡ|ɕ|ʑ|ɺ|ɧ|ʧ|ʤ|ʦ|ʣ|ʨ|ʥ)"
 
 # create the objects
