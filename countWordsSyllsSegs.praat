@@ -75,6 +75,11 @@ ints = Get number of intervals: 4
 for i to ints
   lab$ = Get label of interval: 4, i
 
+  # count syllabic consonants
+  if lab$ = "n̩" or lab$ = "l̩"
+    addSylls = addSylls + 1
+  endif
+
   # if there are two symbols in an interval, and the first is a vowel
   # and the second is a consonant, split them up with an underscore;
   # this is designed to avoid syllabic consonants being treated as a
@@ -104,7 +109,6 @@ if endsWith (text$, " ") = 1
   text$ = left$ (text$, text_length-1)
 endif
 
-
 text_length = length (text$)
 spaces = 0
 for s to text_length
@@ -114,7 +118,6 @@ for s to text_length
   endif
 endfor
 wordsT = spaces + 1
-
 
 # make a readable version
 transWord$ = replace_regex$ (trans$, "__", " ", 0) ; replace double underscore with space
@@ -128,6 +131,9 @@ trans$ = replace_regex$ (trans$, "^_", "", 0) ; remove initial underscore
 words = Count intervals where: 3, "matches (regex)", "."
 segs = Count intervals where: 4, "matches (regex)", "."
 sylls = Count intervals where: 4, "matches (regex)", vowels$
+
+# add any counts for syllabic consonants
+sylls = sylls + addSylls
 
 # variables for different ouput formats
 br$ = newline$
