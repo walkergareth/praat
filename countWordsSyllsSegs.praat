@@ -71,6 +71,7 @@ textGrid = selected ("TextGrid")
 selectObject: textGrid
 
 trans$ = ""
+addSylls = 0
 ints = Get number of intervals: 4
 for i to ints
   lab$ = Get label of interval: 4, i
