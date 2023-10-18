@@ -32,19 +32,23 @@ writeInfo: ""
 # get details of selected objects
 objects# = selected# ()
 
-# gets current editor sequential ID i.e. number in Objects list and
-# selects correct object
+# gets current editor sequential ID
 edInfo$ = Editor info
 edID$ = extractWord$ (edInfo$, "Editor name: ")
+edNumber$ = replace$(edID$, ".", "", 1)
+edNumber = number (edNumber$)
 
 # gets start and end of selection
 start = Get start of selection
 end = Get end of selection
 
-# leaves the editor and prints the info
+# leaves the editor
 endeditor
-select 'edID$' 
 
+# selects the object to match the editor
+selectObject: edNumber
+
+# prints the info
 appendInfoLine: "Pitch info for selection:"
 appendInfoLine: "-------------------------"
 min = Get minimum: 'start', 'end', "Hertz", "None"
