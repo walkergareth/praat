@@ -1,7 +1,7 @@
 # pitchinfo.praat This script lets you make a selection on a pitch
 # trace and using Praat's functions from Praat's 'Query' menu, outputs
-# data (min, max, mean, range, s.d.) on the selection. The script
-# should be run from the Pitch editor window.
+# data on the selection. The script should be run from the Pitch
+# editor window.
  
 # Copyright (C) 2023 Gareth Walker.
 
@@ -49,21 +49,30 @@ endeditor
 selectObject: edNumber
 
 # prints the info
-appendInfoLine: "Pitch info for selection:"
-appendInfoLine: "-------------------------"
+appendInfoLine: "Pitch info for selection (Hz unless stated):"
+appendInfoLine: "--------------------------------------------"
 min = Get minimum: 'start', 'end', "Hertz", "None"
-appendInfoLine: "min (Hz) =", tab$, 'min:2'
+appendInfoLine: "min =", tab$, 'min:2'
 max = Get maximum: 'start', 'end', "Hertz", "None"
-appendInfoLine: "max (Hz) =", tab$, 'max:2'
-median = Get quantile: 'start', 'end', 0.5, "Hertz"
-appendInfoLine: "median (Hz) =", tab$, 'median:2'
+appendInfoLine: "max =", tab$, 'max:2'
+ten = Get quantile: 'start', 'end', 0.1, "Hertz"
 mean = Get mean: 'start', 'end', "Hertz"
-appendInfoLine: "mean (Hz) =", tab$, 'mean:2'
+appendInfoLine: "mean =", tab$, 'mean:2'
+median = Get quantile: 'start', 'end', 0.5, "Hertz"
+appendInfoLine: "median =", tab$, 'median:2'
 range$ = Calculator: "12*log2('max'/'min')"
 range = number(range$)
 appendInfoLine: "range (ST) =", tab$, 'range:2'
+ten = Get quantile: 'start', 'end', 0.1, "Hertz"
+appendInfoLine: "10th percentile =", tab$, 'ten:2'
+twentyfive = Get quantile: 'start', 'end', 0.25, "Hertz"
+appendInfoLine: "25th percentile =", tab$, 'twentyfive:2'
+seventyfive = Get quantile: 'start', 'end', 0.75, "Hertz"
+appendInfoLine: "75th percentile =", tab$, 'seventyfive:2'
+ninety = Get quantile: 'start', 'end', 0.9, "Hertz"
+appendInfoLine: "90th percentile =", tab$, 'ten:2'
 sd = Get standard deviation: 'start', 'end', "Hertz"
-appendInfoLine: "st.dev. (Hz) =", tab$, 'sd:2'  
+appendInfoLine: "st.dev. =", tab$, 'sd:2'  
 
 # restore selection
 selectObject (objects#)
