@@ -18,7 +18,7 @@
 # 5 February 2018 - Added option to draw Sound objects at half height
 #                   when drawing multiple panels
 
-# Copyright (C) 2023 Gareth Walker.
+# Copyright (C) 2024 Gareth Walker.
 
 # g.walker@sheffield.ac.uk
 # School of English
@@ -271,6 +271,16 @@ if erase_all = 1
   Erase all
 endif
 
+# get the number of decimal places for major marks on the x-axis
+major_mark_x_axis_every$ = string$ (major_mark_x_axis_every)
+dindex = index (major_mark_x_axis_every$, ".") 
+dlength = length (major_mark_x_axis_every$)
+dp = dlength - dindex
+d$="1"
+for d to dp
+  d$ = d$ + "0"
+endfor
+
 ########################
 # 
 # Procedures for drawing
@@ -517,8 +527,8 @@ procedure finalGarnish
     repeat
       if majorMarkBottom >= left_Time_range
         Draw line: majorMarkBottom, tMarkBottom*2, majorMarkBottom, 0
-        majorMarkBottomRnd = 'majorMarkBottom:14'
-        majorMarkBottom$ = string$ (majorMarkBottomRnd)
+	majorMarkBottom = (round(majorMarkBottom * number(d$)))/number(d$)
+	majorMarkBottom$ = string$ (majorMarkBottom)
         Text: majorMarkBottom, "centre", tMarkBottom*6, "half", majorMarkBottom$
         if mirror_x_axis_labels = 1
           Draw line: majorMarkBottom, (tMarkTop*2)+1, majorMarkBottom, 1
