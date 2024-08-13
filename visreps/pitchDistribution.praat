@@ -198,7 +198,7 @@ if draw = 1
 		One mark top: p_10, "no", "yes", "yes", ""
 	endif
 
-	# to mark +-2SD of mean (Jassem, 1971; Henton 1989)
+	# to mark +-2SD of mean (Jassem, 1971; Henton, 1989)
 	if mark_2_SD_above_and_below_mean = 1
 		if x_min < p_mean-(2*sd)
 			One mark top: p_mean-(2*sd), "no", "yes", "yes", ""
@@ -207,8 +207,5 @@ if draw = 1
 			One mark top: p_mean+(2*sd), "no", "yes", "yes", ""
 		endif
 	endif
-
-
-
 
 endif
