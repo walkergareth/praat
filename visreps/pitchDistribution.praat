@@ -41,6 +41,7 @@ form: "Select your options"
 	boolean: "Garnish", "on"
 	boolean: "Name_at_top", "off"
 	boolean: "Mark_median", "off"
+	boolean: "Mark_5th_and_95th_percentile", "off"
 endform
 
 ##### PITCH CALCULATIONS
@@ -62,6 +63,8 @@ pitch$ = selected$ ("Pitch") ; get name
 p_min = Get minimum: 0, 0, "Hertz", "none"
 p_max = Get maximum: 0, 0, "Hertz", "none"
 p_median = Get quantile: 0, 0, 0.5, "Hertz"
+p_5 = Get quantile: 0, 0, 0.05, "Hertz"
+p_10 = Get quantile: 0, 0, 0.95, "Hertz"
 
 # round the floor and ceiling down and up to whole numbers which are integer multiples
 # of the bin size
@@ -178,6 +181,12 @@ if draw = 1
 	# to mark the median
 	if mark_median = 1
 		One mark top: p_median, "no", "yes", "yes", ""
+	endif
+
+	# to mark the median
+	if mark_5th_and_95th_percentile = 1
+		One mark top: p_5, "no", "yes", "yes", ""
+		One mark top: p_10, "no", "yes", "yes", ""
 	endif
 
 endif
