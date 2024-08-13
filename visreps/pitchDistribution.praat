@@ -183,7 +183,7 @@ if draw = 1
 		One mark top: p_median, "no", "yes", "yes", ""
 	endif
 
-	# to mark the median
+	# to mark the 5th and 95th percentiles
 	if mark_5th_and_95th_percentile = 1
 		One mark top: p_5, "no", "yes", "yes", ""
 		One mark top: p_10, "no", "yes", "yes", ""
