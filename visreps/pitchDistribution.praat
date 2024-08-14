@@ -42,6 +42,7 @@ form: "Select your options"
 	boolean: "Name_at_top", "off"
 	boolean: "Mark_mean", "off"
 	boolean: "Mark_median", "off"
+	boolean: "Mark_mode", "off"
 	boolean: "Mark_5th_and_95th_percentile", "off"
 	boolean: "Mark_2_SD_above_and_below_mean", "off"
 endform
@@ -109,6 +110,13 @@ for f to frames
 		selectObject: pitch
 	endif
 endfor
+
+# get a list of the rows containing the highest number of values (the mode, or modes)
+selectObject: table
+n_max = Get maximum: "n"
+mode_rows# = List row numbers where: "self [row, ""n""] = n_max"
+
+selectObject: pitch
 
 ##### DRAWING
 
@@ -190,6 +198,16 @@ if draw = 1
 	# to mark the median
 	if mark_median = 1
 		One mark top: p_median, "no", "yes", "yes", ""
+	endif
+
+	# to mark the mode
+	if mark_mode = 1
+		for m from 1 to size (mode_rows#)
+			selectObject: table
+			p_mode = Get value: mode_rows# [m], "pitch"
+			One mark top: p_mode, "no", "yes", "yes", ""
+		endfor
+		selectObject: pitch
 	endif
 
 	# to mark the 5th and 95th percentiles
