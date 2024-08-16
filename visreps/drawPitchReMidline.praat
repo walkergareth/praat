@@ -33,7 +33,7 @@ form: "Draw relative to midline value"
 	real: "topline_(ST)", "8"
 	real: "mark_in_lower_section_(ST)", "0 (=no mark)" 
 	real: "mark_in_upper_section_(ST)", "0 (=no mark)"
-	#real: "marks_bottom_every_(s)", "0.2"
+	real: "marks_bottom_every_(s)", "0.2"
 	sentence: "y_axis_label", "Pitch re. mode (ST)"
 endform
 
@@ -63,10 +63,7 @@ for i from 1 to frames
 	if time > left_Time_range and time < right_Time_range
 		value = Get value in frame: i, "Hertz"
 		if value <> undefined
-			valueST = 12*log2(value/midline)
-			if valueST > baseline and valueST < topline
-				Paint circle (mm): "black", time, valueST, 1.0
-			endif
+			Paint circle (mm): "black", time, 12*log2(value/midline), 1.0
 		endif
 	endif
 endfor
