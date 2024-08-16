@@ -26,26 +26,52 @@
 # <http://www.gnu.org/licenses/>.
 
 form: "Draw relative to midline value"
+  	real: "left_Time_range_(s)", "0"
+  	real: "right_Time_range_(s)", "0 (=all)"
 	positive: "midline_(Hz)", "150"
 	real: "baseline_(ST)", "-3"
 	real: "topline_(ST)", "8"
 	real: "mark_in_lower_section_(ST)", "0 (=no mark)" 
 	real: "mark_in_upper_section_(ST)", "0 (=no mark)"
-	real: "marks_bottom_every_(s)", "0.2"
+	#real: "marks_bottom_every_(s)", "0.2"
 	sentence: "y_axis_label", "Pitch re. mode (ST)"
 endform
 
+if left_Time_range = 0
+	start = Get start time
+	left_Time_range = start  
+endif
+if right_Time_range = 0
+	end = Get end time
+	right_Time_range = end
+endif
+
 pitch = selected ("Pitch")
 
-copy = Copy: "copy"
-Formula: "hertzToSemitones(self)-hertzToSemitones(midline)"
+#copy = Copy: "copy"
+#Formula: "hertzToSemitones(self)-hertzToSemitones(midline)"
 
 Speckle: 0, 0, baseline, topline, "no"
 Draw inner box
 Text left: "yes", y_axis_label$
 Text bottom: "yes", "Time (s)"
 
-Marks bottom every: 1, marks_bottom_every, "yes", "yes", "no"
+frames = Get number of frames
+
+for i from 1 to frames
+	time = Get time from frame number: i
+	if time > left_Time_range and time < right_Time_range
+		value = Get value in frame: i, "Hertz"
+		if value <> undefined
+			Paint circle (mm): "black", time, 12*log2(value/midline), 1.0
+		endif
+	endif
+endfor
+
+####### GARNISH
+
+One mark bottom: 'left_Time_range:3', "yes", "yes", "no", ""
+One mark bottom: 'right_Time_range:3', "yes", "yes", "no", ""
 
 One mark left: 0, "no", "yes", "no", "0"
 One mark left: baseline, "yes", "yes", "no", ""
@@ -59,6 +85,6 @@ if mark_in_upper_section <> 0
 	One mark left: mark_in_upper_section, "yes", "yes", "no", ""
 endif
 
-Remove
+#Remove
 
 selectObject: pitch
