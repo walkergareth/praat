@@ -61,9 +61,12 @@ frames = Get number of frames
 for i from 1 to frames
 	time = Get time from frame number: i
 	if time > left_Time_range and time < right_Time_range
-		value = Get value in frame: i, "Hertz"
+	    value = Get value in frame: i, "Hertz"
 		if value <> undefined
-			Paint circle (mm): "black", time, 12*log2(value/midline), 1.0
+			valueST = hertzToSemitones(midline)-hertzToSemitones(value)
+			if valueST > baseline and valueST < topline
+				Paint circle (mm): "black", time, valueST, 1.0
+			endif
 		endif
 	endif
 endfor
