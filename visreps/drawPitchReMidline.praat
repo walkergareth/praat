@@ -63,7 +63,7 @@ for i from 1 to frames
 	if time > left_Time_range and time < right_Time_range
 	    value = Get value in frame: i, "Hertz"
 		if value <> undefined
-			valueST = hertzToSemitones(midline)-hertzToSemitones(value)
+			valueST = hertzToSemitones(value)-hertzToSemitones(midline)
 			if valueST > baseline and valueST < topline
 				Paint circle (mm): "black", time, valueST, 1.0
 			endif
