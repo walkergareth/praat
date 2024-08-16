@@ -33,7 +33,7 @@ form: "Draw relative to midline value"
 	real: "topline_(ST)", "8"
 	real: "mark_in_lower_section_(ST)", "0 (=no mark)" 
 	real: "mark_in_upper_section_(ST)", "0 (=no mark)"
-	real: "marks_bottom_every_(s)", "0.2"
+	#real: "marks_bottom_every_(s)", "0.2"
 	sentence: "y_axis_label", "Pitch re. mode (ST)"
 endform
 
