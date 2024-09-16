@@ -48,6 +48,9 @@ if font_size = 0
   font_size = extractNumber(picInfo$, "Font size:") 
 endif
 
+# temporarily adjust y-axis
+Axes: axisLeft, axisRight, 0, 1
+
 # calculations
 xAxis = axisTop-axisBottom
 ivpXAxis = ivpBottom-ivpTop
@@ -89,3 +92,5 @@ endif
 Remove
 selectObject: textGrid
 
+# restore y-axis
+Axes: axisLeft, axisRight, axisBottom, axisTop
