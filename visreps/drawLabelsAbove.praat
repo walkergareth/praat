@@ -2,7 +2,7 @@
 # from a tier in a TextGrid at the top of the current selection in the
 # Picture window.
 
-# Copyright (C) 2023 Gareth Walker.
+# Copyright (C) 2024 Gareth Walker.
 
 # g.walker@sheffield.ac.uk
 # School of English
