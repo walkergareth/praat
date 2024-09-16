@@ -56,7 +56,7 @@ xAxis = axisTop-axisBottom
 ivpXAxis = ivpBottom-ivpTop
 ovpXAxis = ovpBottom-ovpTop
 # vertical position of labels
-place = ((xAxis/ivpXAxis)*((ivpTop-ovpTop)/10))+axisTop
+place = ((xAxis/ivpXAxis)*((ivpTop-ovpTop)/10))+1
 
 # extract portion of TextGrid corresponding to axis
 textGrid = selected ("TextGrid")
