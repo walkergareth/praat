@@ -1,10 +1,5 @@
-# drawReactionData.praat. Praat script to plot real-time reaction data
-# to audio samples. Plots the number of clicks in a specified amount
-# of time (bin_width), with the option of overlapping windows (set
-# jump_size accordingly).
-
-# Start with a Table selected which contains the times in a column,
-# plus a Sound and/or Spectrogram if you also want to draw those.
+# drawReactionData.praat. Praat script to prepare visual representations of the
+# times of listeners' reactions to audio samples. See sepate documentation file.
 
 # possible to do list:
 # . drawing filled bars?
@@ -12,7 +7,7 @@
 # . draw TextGrid/labels as a panel?
 # . plot responses as a percentage of some total number
 
-# Copyright (C) 2023 Gareth Walker.
+# Copyright (C) 2024 Gareth Walker.
 
 # g.walker@sheffield.ac.uk
 # School of English
