@@ -51,12 +51,8 @@ endif
 # temporarily adjust y-axis
 Axes: axisLeft, axisRight, 0, 1
 
-# calculations
-xAxis = axisTop-axisBottom
-ivpXAxis = ivpBottom-ivpTop
-ovpXAxis = ovpBottom-ovpTop
-# vertical position of labels
-place = ((xAxis/ivpXAxis)*((ivpTop-ovpTop)/10))+1
+# vertical position of labels based on height of top margin
+place=(((ivpTop-ovpTop)/(ivpBottom-ivpTop))/3)+1
 
 # extract portion of TextGrid corresponding to axis
 textGrid = selected ("TextGrid")
@@ -72,7 +68,7 @@ if intTier = 1
     text$ = Get label of interval: tier, i
     begin = Get start time of interval: tier, i
     end = Get end time of interval: tier, i
-    Text special: begin+((end-begin)/2), "Centre", place, "Bottom", font$, font_size, "0", text$
+    Text special: begin+((end-begin)/2), "Centre", place, "half", font$, font_size, "0", text$
     if begin > axisLeft 
       One mark top: begin, 0, draw_tics, show_boundaries, ""
     endif
