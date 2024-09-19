@@ -1,11 +1,5 @@
 # drawReactionData.praat. Praat script to prepare visual representations of the
-# times of listeners' reactions to audio samples. See sepate documentation file.
-
-# possible to do list:
-# . drawing filled bars?
-# . option to draw pitch?
-# . draw TextGrid/labels as a panel?
-# . plot responses as a percentage of some total number
+# times of listeners' reactions to audio samples. See separate documentation file.
 
 # Copyright (C) 2024 Gareth Walker.
 
@@ -90,8 +84,9 @@ form: "Draw reaction data..."
   real: "right_Spectrogram_range", "0 (= all)"
   real: "Spectrogram_dynamic_range_(dB)", "50"
   real: "Mark_spectrogram_every_(kHz)", "1"
-  optionmenu: "Style", "2"
+  optionmenu: "Style", "3"
     option: "bars"
+    option: "filled bars"
     option: "lines"
     option: "points"
     option: "lines and points"
@@ -183,7 +178,7 @@ if number_of_bins <> number_of_bins_rnd
 endif
 
 # check jump size and bin width
-if jump_size < bin_width and style = 1
+if jump_size < bin_width and (style = 1 or style = 2)
   pauseScript: "Bin width is greater than jump size. Bars may overlap."
 elsif jump_size > bin_width
   pauseScript: "Jump size is greater than bin width. Some data may not be represented."  
@@ -268,6 +263,9 @@ procedure drawHits
   if style = 1
     Draw rectangle: x_val_start, x_val_end, 0, y_val
   elsif style = 2
+    Paint rectangle: colour$, x_val_start, x_val_end, 0, y_val
+  endif
+  elsif style = 3
     if q > 1
       prev_bin_start =  Get value: q-1, "bin_start" 
       line_start_x = (bin_width/2)+prev_bin_start
@@ -277,9 +275,9 @@ procedure drawHits
       line_end_y = y_val
       Draw line: line_start_x,line_start_y,line_end_x,line_end_y
     endif
-  elsif style = 3
-    Paint circle: colour$,x_val_start+(bin_width/2),y_val,point_size
   elsif style = 4
+    Paint circle: colour$,x_val_start+(bin_width/2),y_val,point_size
+  elsif style = 5
     if q > 1
       prev_bin_start =  Get value: q-1, "bin_start" 
       line_start_x = (bin_width/2)+prev_bin_start
