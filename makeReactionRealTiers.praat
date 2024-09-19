@@ -27,7 +27,7 @@
 # <http://www.gnu.org/licenses/>.
 
 # sets some options
-form: "Draw reaction data..."
+form: "Make RealTier from reaction data..."
 	sentence: "Column_containing_times", "time"
 	positive: "Bin_width_(s)", "0.5"
 	positive: "Jump_size_(s)", "0.1"
