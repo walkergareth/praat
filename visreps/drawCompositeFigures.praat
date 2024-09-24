@@ -48,7 +48,7 @@
 #
 #################
 
-form: "Drawing options"
+form: "Draw composite figure..."
   real: "left_Time_range_(s)", "0"
   real: "right_Time_range", "0 (= all)"
   real: "Major_mark_x_axis_every_(s)", "1"
@@ -57,7 +57,7 @@ form: "Drawing options"
   real: "left_Pitch_range_(Hz)", "50"
   real: "right_Pitch_range", "500"
   real: "Pitch_middle_(Hz)", "0 (= none)"
-  optionmenu: "Pitch_style:", "2"
+  optionmenu: "Pitch_style:", 2
     option: "Speckle linear (Hz)"
     option: "Speckle logarithmic (Hz)"
     option: "Speckle semitones (re baseline)"
