@@ -417,7 +417,7 @@ endif
 
 # clean up
 selectObject: new_Table
-#Remove
+Remove
 
 selectObject ()
 for i from 1 to n
