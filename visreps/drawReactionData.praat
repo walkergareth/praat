@@ -80,6 +80,7 @@ form: "Draw reaction data..."
   real: "left_Y_axis_range", "0"
   real: "right_Y_axis_range", "0 (= all)"
   sentence: "Y_axis_label", "responses (%n)"
+  real: "Multiplier", "1"
   real: "left_Spectrogram_range_(Hz)", "0"
   real: "right_Spectrogram_range", "0 (= all)"
   real: "Spectrogram_dynamic_range_(dB)", "50"
@@ -214,6 +215,12 @@ repeat
 # stops when the bin starts after the end of the specified range
 until bin_start + (0.5*(bin_end - bin_start)) > end_time
 
+# apply multiplier
+if multiplier <> 1
+  Formula: "count", "self * multiplier"
+  View & Edit
+endif
+
 if save_data_to_desktop = 1
   Save as comma-separated file: "~/Desktop/" + table_name$ + "-reactions.csv"
 endif
@@ -264,7 +271,6 @@ procedure drawHits
     Draw rectangle: x_val_start, x_val_end, 0, y_val
   elsif style = 2
     Paint rectangle: colour$, x_val_start, x_val_end, 0, y_val
-  endif
   elsif style = 3
     if q > 1
       prev_bin_start =  Get value: q-1, "bin_start" 
@@ -411,7 +417,7 @@ endif
 
 # clean up
 selectObject: new_Table
-Remove
+#Remove
 
 selectObject ()
 for i from 1 to n
