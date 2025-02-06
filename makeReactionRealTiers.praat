@@ -2,7 +2,7 @@
 # times of listeners' reactions to audio samples. See separate documentation
 # file.
 
-# Copyright (C) 2024 Gareth Walker.
+# Copyright (C) 2025 Gareth Walker.
 
 # g.walker@sheffield.ac.uk
 # School of English
@@ -28,7 +28,7 @@
 
 # sets some options
 form: "Make RealTier from reaction data..."
-	sentence: "Column_containing_times", "time"
+	sentence: "Column_containing_times", "_time"
 	positive: "Bin_width_(s)", "0.5"
 	positive: "Jump_size_(s)", "0.1"
 	sentence: "Name_of_new_objects", "untitled"
