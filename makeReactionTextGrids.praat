@@ -45,30 +45,59 @@ name$ = selected$ ("Sound")
 selectObject: table
 
 # make a copy of the table
-copyTable = Copy: "copyTable"
-
+# copyTable = Copy: "copyTable"
 # sort the table by user ID
-Sort rows: { uid_col$ }
-
+# Sort rows: { uid_col$ }
 # set all the duplicated user IDs to zero; slow but seems to do the job
-rows = Get number of rows
-for r from 1 to rows-1
-	val = Get value: r, uid_col$
-	checkRow = r+1
-	repeat
-		checkVal = Get value: checkRow, uid_col$
-		if checkVal = val
-			Set numeric value: checkRow, uid_col$, 0
-		endif
-		checkRow = checkRow + 1
-	until checkRow > rows
-endfor
-
+# rows = Get number of rows
+# for r from 1 to rows-1
+#	val = Get value: r, uid_col$
+#	checkRow = r+1
+#	repeat
+#		checkVal = Get value: checkRow, uid_col$
+#		if checkVal = val
+#			Set numeric value: checkRow, uid_col$, 0
+#		endif
+#		checkRow = checkRow + 1
+#	until checkRow > rows
+# endfor
 # create a table containing only uniq user IDs (those greater than 0)
-uniqTable = Extract rows where column (number): "_uid", "greater than", 0
+# uniqTable = Extract rows where column (number): "_uid", "greater than", 0
 
 # get the user IDs as a vector
 uids# = Get all numbers in column: uid_col$
+
+# sort the vector
+uids# = sort# (uids#)
+
+# get the items from the sorted vector into an array
+for v to size (uids#)
+	array[v] = uids#[v]
+endfor
+
+# make any duplicates undefined 
+for x from 2 to size (uids#)
+	if uids#[x] = uids#[x-1]
+		array[x] = undefined
+	endif
+endfor
+
+# count the number of times there are non-undefined dimensions
+hits = 0
+for y to size (uids#)
+	if array[y] <> undefined
+		hits = hits + 1
+		newArray[hits] = array[y]
+	endif
+endfor
+
+# prepare the vector to store the unique numbers by creating the relevant number of zeros
+uids# = zero# (hits)
+
+# populate the new vector with the unique numbers
+for h to hits
+	uids# [h] = newArray [h]
+endfor
 
 # extract the rows relating to each user ID into a new table and make a new TextGrid
 for i from 1 to size (uids#)
@@ -82,12 +111,18 @@ for i from 1 to size (uids#)
 	selectObject: uidTable
 	commRows = Get number of rows
 
+	# add points for each click
 	for c to commRows
 
 		# get information about the datapoint
-		time = Get value: c, time_col$
 		uid = Get value: c, uid_col$
 		comment$ = Get value: c, comm_col$
+		time = Get value: c, time_col$
+
+		# set time to 0 if there is no time given, to preserve click and the comment (if present)
+		if time = undefined
+			time = 0
+		endif
 	
 		# add the datapoint to the TextGrid
 		selectObject: uidTG
@@ -100,11 +135,6 @@ for i from 1 to size (uids#)
 	Remove
 
 endfor
-
-# remove the new tables
-selectObject: uniqTable 
-plusObject: copyTable
-Remove
 
 # select all the new TextGrids
 selectObject: "TextGrid " + string$ (uids# [1])
